@@ -4,10 +4,9 @@ import MainLayout from "./MainLayout.astro";
 
 export type Props = {
 	formatter: ProjectMeta;
-	slug: string;
 };
 
-const { formatter, slug } = Astro.props as Props;
+const { formatter } = Astro.props as Props;
 ---
 
 <MainLayout title="Projects">
