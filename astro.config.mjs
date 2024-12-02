@@ -16,6 +16,7 @@ export default defineConfig({
 		svelte(),
 		mdx(),
 	],
+	site: "https://muhfarishadimulyo.my.id",
 	vite: {
 		plugins: [Icons({ compiler: "svelte" })],
 		resolve: {
