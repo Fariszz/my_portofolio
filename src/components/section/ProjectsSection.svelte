@@ -1,0 +1,42 @@
+<script lang="ts">
+export let projects: Array<{
+	slug: string;
+	data: {
+		title: string;
+		description: string;
+		technologies: string[];
+	};
+}>;
+</script>
+
+<section class="space-y-4">
+	<div class="flex justify-between items-center">
+		<h2 class="text-2xl font-semibold">Featured Projects</h2>
+		<a href="/projects" class="text-primary hover:text-primary-hover transition-colors"> See more → </a>
+	</div>
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+		{#each projects as project}
+			<article
+				class="p-6 rounded-lg border border-collapse border-border-light dark:border-border-dark hover:border-primary transition-colors group relative flex flex-col min-h-[200px]"
+			>
+				<a href={`/projects/${project.slug}`} class="block group flex-grow">
+					<h2 class="text-2xl font-semibold group-hover:text-primary transition-colors">
+						{project.data.title}
+					</h2>
+					<p class="mt-2 text-sm text-text-light dark:text-text-dark">
+						{project.data.description}
+					</p>
+				</a>
+				<div class="mt-4 flex flex-wrap gap-2">
+					{#each project.data.technologies as tech}
+						<span
+							class="px-3 py-1 text-xs rounded-full border border-line bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark"
+						>
+							{tech}
+						</span>
+					{/each}
+				</div>
+			</article>
+		{/each}
+	</div>
+</section>

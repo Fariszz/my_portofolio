@@ -1,0 +1,41 @@
+---
+import MainLayout from "~/layouts/MainLayout.astro";
+import SocialLinks from "../components/SocialLinks.astro";
+import WorkExperienceSection from "~/components/section/WorkExperienceSection.svelte";
+import ProjectsSection from "~/components/section/ProjectsSection.svelte";
+import BlogSection from "~/components/section/BlogSection.svelte";
+import { workExperiences } from "~/data/work-experience";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+const featuredProjects = projects.filter((project: { data: { featured: any; }; }) => project.data.featured);
+
+const posts = await getCollection("blog");
+const recentPosts = posts
+	.sort((a: { data: { pubDate: string | number | Date; }; }, b: { data: { pubDate: string | number | Date; }; }) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+	.slice(0, 3);
+
+const workExperiencesSort = workExperiences.slice(0, 2);
+---
+
+<MainLayout title="Home">
+	<section class="space-y-12">
+		<div class="space-y-4">
+			<h1 class="text-4xl font-bold text-primary">Muhammad Faris Hadi Mulyo</h1>
+			<p class="text-lg transition-colors">I build things for the web and share my knowledge through writing.</p>
+			<SocialLinks />
+		</div>
+
+		<div class="space-y-6">
+			<WorkExperienceSection client:visible workExperiences={workExperiencesSort} showSeeMore={true} />
+		</div>
+
+		<div class="space-y-6">
+		<ProjectsSection client:visible projects={featuredProjects} />
+		</div>
+
+		<div class="space-y-6">
+			<BlogSection client:visible posts={recentPosts} showSeeMore={true} />
+		</div>
+	</section>
+</MainLayout>

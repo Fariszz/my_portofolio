@@ -1,0 +1,11 @@
+---
+import MainLayout from "~/layouts/MainLayout.astro";
+import WorkExperienceSection from "~/components/section/WorkExperienceSection.svelte";
+import { workExperiences } from "~/data/work-experience";
+---
+
+<MainLayout title="Experience">
+	<div class="space-y-6">
+		<WorkExperienceSection client:visible workExperiences={workExperiences} showSeeMore={false} />
+	</div>
+</MainLayout>

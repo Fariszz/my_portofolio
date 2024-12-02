@@ -1,0 +1,67 @@
+---
+import { ViewTransitions } from "astro:transitions";
+import Navbar from "../components/Navbar.astro";
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Personal blog and portfolio" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<title>{title}</title>
+		<ViewTransitions />
+		<script>
+			function updateTheme() {
+				if (
+					localStorage.getItem("theme") === "dark" ||
+					(!localStorage.getItem("theme") && window.matchMedia("(prefers-color-scheme: dark)").matches)
+				) {
+					document.documentElement.classList.add("dark");
+				} else {
+					document.documentElement.classList.remove("dark");
+				}
+			}
+
+			// Update theme on page load
+			updateTheme();
+
+			// Update theme when localStorage changes
+			window.addEventListener("storage", () => updateTheme());
+
+			// Update theme when view transition completes
+			document.addEventListener("astro:after-swap", () => updateTheme());
+		</script>
+	</head>
+	<body
+		class="min-h-screen bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-sans transition-colors"
+	>
+		<Navbar />
+		<main class="max-w-7xl mx-auto px-4 py-8">
+			<slot />
+		</main>
+	</body>
+</html>
+
+<style is:global>
+	::selection {
+		background-color: rgba(255, 111, 60, 0.2);
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		min-height: 100vh;
+	}
+</style>

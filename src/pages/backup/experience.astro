@@ -1,0 +1,109 @@
+---
+import MainLayout from "~/layouts/MainLayout.astro";
+
+const experiences = [
+	{
+		title: "Senior Developer",
+		company: "Tech Corp",
+		period: "2022 - Present",
+		achievements: [
+			"Led development of cloud-native applications using microservices architecture",
+			"Improved system scalability by 300% through implementation of distributed caching",
+			"Mentored team of 5 junior developers, resulting in 40% faster onboarding time",
+			"Implemented CI/CD pipeline reducing deployment time from 2 hours to 15 minutes",
+			"Architected and deployed serverless solutions reducing infrastructure costs by 60%",
+		],
+		technologies: ["React", "Node.js", "AWS", "Docker", "Kubernetes"],
+	},
+	{
+		title: "Full Stack Developer",
+		company: "StartupX",
+		period: "2020 - 2022",
+		achievements: [
+			"Built and maintained multiple web applications serving 100k+ daily users",
+			"Reduced page load time by 65% through implementation of lazy loading and caching",
+			"Developed real-time collaboration features using WebSocket technology",
+			"Led migration from monolithic to microservices architecture",
+			"Implemented automated testing increasing code coverage from 45% to 85%",
+		],
+		technologies: ["Vue.js", "Python", "PostgreSQL", "Redis", "Docker"],
+	},
+	{
+		title: "Frontend Developer",
+		company: "WebCo",
+		period: "2018 - 2020",
+		achievements: [
+			"Developed responsive web applications using modern JavaScript frameworks",
+			"Improved site performance score from 65 to 95 on Google PageSpeed",
+			"Created reusable component library reducing development time by 40%",
+			"Implemented A/B testing framework leading to 25% increase in user engagement",
+			"Optimized build process reducing bundle size by 60%",
+		],
+		technologies: ["JavaScript", "React", "CSS", "Webpack", "Jest"],
+	},
+];
+
+const skills = {
+	Frontend: ["React", "Vue.js", "TypeScript", "Tailwind CSS", "Astro"],
+	Backend: ["Node.js", "Python", "Express", "FastAPI", "GraphQL"],
+	Database: ["PostgreSQL", "MongoDB", "Redis", "Prisma", "TypeORM"],
+	DevOps: ["Docker", "AWS", "CI/CD", "Git", "Kubernetes"],
+	Tools: ["VS Code", "Figma", "Postman", "Jest", "GitHub Actions"],
+};
+---
+
+<MainLayout title="Experience">
+	<div class="space-y-12">
+		<section>
+			<h1 class="text-4xl font-bold text-primary mb-8">Experience</h1>
+			<div class="space-y-12">
+				{
+					experiences.map((exp) => (
+						<div class="p-6 rounded-lg bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark">
+							<div class="space-y-4">
+								<div class="space-y-2">
+									<h3 class="text-2xl font-medium text-primary">{exp.title}</h3>
+									<p class="text-gray-500 dark:text-gray-400">
+										{exp.company} • {exp.period}
+									</p>
+								</div>
+								<ul class="list-disc list-inside space-y-2 text-text-light dark:text-text-dark ml-4">
+									{exp.achievements.map((achievement) => (
+										<li>{achievement}</li>
+									))}
+								</ul>
+								<div class="flex flex-wrap gap-2 mt-4">
+									{exp.technologies.map((tech) => (
+										<span class="px-3 py-1 text-sm rounded-full bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+											{tech}
+										</span>
+									))}
+								</div>
+							</div>
+						</div>
+					))
+				}
+			</div>
+		</section>
+
+		<section>
+			<h2 class="text-2xl font-semibold mb-6">Skills & Technologies</h2>
+			<div class="grid gap-8 md:grid-cols-2">
+				{
+					Object.entries(skills).map(([category, items]) => (
+						<div class="p-6 rounded-lg bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark">
+							<h3 class="text-xl font-medium text-primary mb-4">{category}</h3>
+							<div class="flex flex-wrap gap-2">
+								{items.map((item) => (
+									<span class="px-3 py-1 text-sm rounded-full bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+										{item}
+									</span>
+								))}
+							</div>
+						</div>
+					))
+				}
+			</div>
+		</section>
+	</div>
+</MainLayout>

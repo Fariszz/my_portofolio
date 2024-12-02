@@ -1,0 +1,72 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import MainLayout from "~/layouts/MainLayout.astro";
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+export async function getStaticPaths() {
+	const posts = await getCollection("blog");
+	return posts.map((post: { slug: string }) => ({
+		params: { slug: post.slug },
+		props: { post },
+	}));
+}
+
+type Props = {
+	post: CollectionEntry<"blog">;
+};
+---
+
+<MainLayout title={post.data.title}>
+	<article class="prose prose-lg dark:prose-invert max-w-none">
+		<div class="mb-8">
+			<h1 class="text-4xl font-bold text-primary mb-4">{post.data.title}</h1>
+			<div class="flex gap-4 items-center text-gray-500 dark:text-gray-400 mb-6">
+				<time datetime={post.data.pubDate.toISOString()}>
+					{new Date(post.data.pubDate).toLocaleDateString()}
+				</time>
+				<div class="flex gap-2">
+					{
+						post.data.tags.map((tag) => (
+							<span class="px-3 py-1 text-sm rounded-full bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+								{tag}
+							</span>
+						))
+					}
+				</div>
+			</div>
+			<p class="text-lg text-text-light dark:text-text-dark">{post.data.description}</p>
+		</div>
+
+		<div
+			class="p-8 rounded-lg bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark"
+		>
+			<Content />
+		</div>
+	</article>
+</MainLayout>
+
+<style is:global>
+	.prose {
+		max-width: 100%;
+	}
+	.prose h1,
+	.prose h2,
+	.prose h3,
+	.prose h4,
+	.prose h5,
+	.prose h6 {
+		color: theme("colors.primary.DEFAULT");
+	}
+	.prose a {
+		color: theme("colors.primary.DEFAULT");
+		text-decoration: none;
+	}
+	.prose a:hover {
+		color: theme("colors.primary.hover");
+	}
+	.dark .prose {
+		color: theme("colors.text.dark");
+	}
+</style>

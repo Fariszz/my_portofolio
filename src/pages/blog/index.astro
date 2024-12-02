@@ -1,0 +1,107 @@
+---
+import { getCollection } from "astro:content";
+import BlogSearch from "../../components/BlogSearch.svelte";
+import MainLayout from "~/layouts/MainLayout.astro";
+
+const posts = await getCollection("blog");
+const allTags = [...new Set(posts.flatMap((post: { data: { tags: any; }; }) => post.data.tags))];
+---
+
+<MainLayout title="Blog">
+	<div class="space-y-8">
+		<h1 class="text-4xl font-bold">Blog Posts</h1>
+
+		<div class="space-y-6">
+			<BlogSearch client:load allTags={allTags} />
+		</div>
+
+		<div class="posts-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			{
+				posts.map((post: { data: { tags: any[]; title: unknown; pubDate: string | number | Date; description: unknown; }; slug: any; }) => (
+					<article
+						class="p-6 rounded-lg border border-collapse border-border-light dark:border-border-dark hover:border-primary transition-colors relative flex flex-col min-h-[200px]"
+						data-tags={JSON.stringify(post.data.tags)}
+					>
+						<a href={`/blog/${post.slug}`} class="block group flex-grow">
+							<h2 class="text-2xl font-semibold group-hover:text-primary transition-colors">
+								{post.data.title}
+							</h2>
+							<time class="text-sm text-gray-500 dark:text-gray-400">
+								{new Date(post.data.pubDate).toLocaleDateString()}
+							</time>
+							<p class="text-text-light dark:text-text-dark mt-2">{post.data.description}</p>
+						</a>
+						<div class="mt-4 flex flex-wrap gap-2">
+							{post.data.tags.map((tag: unknown) => (
+								<span class="px-3 py-1 text-xs rounded-full border border-line bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+									{tag}
+								</span>
+							))}
+						</div>
+					</article>
+				))
+			}
+		</div>
+
+		<p class="hidden text-center text-gray-500 dark:text-gray-400" id="no-results">
+			No posts found matching your criteria
+		</p>
+	</div>
+</MainLayout>
+
+<script>
+	const posts = document.querySelectorAll<HTMLElement>(".posts-grid article");
+	const noResults = document.querySelector<HTMLElement>("#no-results");
+	const searchInput = document.querySelector<HTMLInputElement>('input[type="text"]');
+
+	function filterPosts(searchQuery = "", selectedTags: string[] = []) {
+		let visiblePosts = 0;
+
+		posts.forEach((post) => {
+			const title = post.querySelector("h2")?.textContent?.toLowerCase() || "";
+			const description = post.querySelector("p")?.textContent?.toLowerCase() || "";
+			const postTags = JSON.parse(post.dataset.tags || "[]") as string[];
+
+			const matchesSearch =
+				searchQuery === "" ||
+				title.includes(searchQuery.toLowerCase()) ||
+				description.includes(searchQuery.toLowerCase());
+
+			const matchesTags = selectedTags.length === 0 || selectedTags.every((tag) => postTags.includes(tag));
+
+			if (matchesSearch && matchesTags) {
+				post.style.display = "block";
+				visiblePosts++;
+			} else {
+				post.style.display = "none";
+			}
+		});
+
+		if (noResults) {
+			noResults.style.display = visiblePosts === 0 ? "block" : "none";
+		}
+	}
+
+	function getSelectedTags(): string[] {
+		return Array.from(document.querySelectorAll<HTMLElement>(".tag-button.selected")).map(
+			(button) => button.textContent?.trim() || ""
+		);
+	}
+
+	// Add event listeners for search and tag changes
+	searchInput?.addEventListener("input", (e) => {
+		const target = e.target as HTMLInputElement;
+		filterPosts(target.value, getSelectedTags());
+	});
+
+	// Listen for tag button clicks
+	document.querySelectorAll<HTMLElement>(".tag-button").forEach((button) => {
+		button.addEventListener("click", () => {
+			button.classList.toggle("selected");
+			filterPosts(searchInput?.value || "", getSelectedTags());
+		});
+	});
+
+	// Initial filter
+	filterPosts();
+</script>

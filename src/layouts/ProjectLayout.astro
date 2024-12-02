@@ -1,0 +1,55 @@
+---
+import type { ProjectMeta } from "~/models/project";
+import MainLayout from "./MainLayout.astro";
+
+export type Props = {
+	formatter: ProjectMeta;
+	slug: string;
+};
+
+const { formatter, slug } = Astro.props as Props;
+---
+
+<MainLayout title="Projects">
+	<article class="max-w-3xl mx-auto">
+		<h1 class="text-4xl font-bold text-primary">{formatter.title}</h1>
+		<div class="mt-4 flex flex-wrap gap-2">
+			{
+				formatter.technologies.map((tech: unknown) => (
+					<span class="px-3 py-1 text-xs rounded-full border border-line bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+						{tech}
+					</span>
+				))
+			}
+		</div>
+		<div class="mt-4 flex gap-4">
+			{
+				formatter.github && (
+					<a
+						href={formatter.github}
+						class="text-primary hover:text-primary-hover transition-colors"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						GitHub →
+					</a>
+				)
+			}
+			{
+				formatter.demo && (
+					<a
+						href={formatter.demo}
+						class="text-primary hover:text-primary-hover transition-colors"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Live Demo →
+					</a>
+				)
+			}
+		</div>
+		<div class="mt-8 prose dark:prose-invert max-w-none">
+			<!-- <Content /> -->
+		</div>
+	</article>
+</MainLayout>
