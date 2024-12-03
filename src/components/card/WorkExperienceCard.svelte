@@ -4,7 +4,7 @@
 	export let company: string;
 	export let position: string;
 	export let type: "remote" | "onsite";
-	export let time: "full-time" | "contract" | "freelance";
+	export let time: "full-time" | "contract" | "freelance" | "internship";
 	export let period: [Date, Date | null];
 	export let details: string[];
 	export let technologies: string[];
