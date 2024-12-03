@@ -25,7 +25,7 @@ export const workExperiences: WorkExperience[] = [
 			"Participated in team meetings and discussions to brainstorm ideas for system improvement",
 			"Successfully optimized code execution time from 1700ms to 100ms, achieving a 94% performance improvement through code refactoring and efficient algorithm implementation.",
 		],
-		technologies: ["typescript", "nest js", "Postgresql", "mongodb", "docker", "Laravel"],
+		technologies: ["Typescript", "Nest JS", "Postgresql", "Mongodb", "Docker", "Laravel"],
 	},
 	{
 		company: "Olahkarsa",
@@ -37,7 +37,7 @@ export const workExperiences: WorkExperience[] = [
 			"Developed a comprehensive reporting system to meet internal employee needs and enhancing data accessibility.a",
 			"Implemented Single Sign-On (SSO) functionality using Laravel to streamline user authentication and improve security across multiple applications.",
 		],
-		technologies: ["php", "Laravel", "mysql"],
+		technologies: ["PHP", "Laravel", "MySQL"],
 	},
 	{
 		company: "PT. Zona Karya Nusantara",
@@ -50,7 +50,7 @@ export const workExperiences: WorkExperience[] = [
 			"Participated in regular stand-ups and sprint planning meetings to track progress and prioritize tasks",
 			"Utilized Laravel to design and build frontend and backend systems",
 		],
-		technologies: ["php", "Laravel", "mysql", "Ubuntu", "Ajax"],
+		technologies: ["PHP", "Laravel", "MySQL", "Ubuntu", "Ajax"],
 	},
 	{
 		company: "Elux Space",
@@ -63,6 +63,19 @@ export const workExperiences: WorkExperience[] = [
 			"Actively participated in bug resolution activities, identifying and troubleshooting issues promptly to maintain the stability of the Kendali App.",
 			"Implemented best practices for Laravel API development to optimize system performance and ensure the security of user data.",
 		],
-		technologies: ["Laravel", "Php", "MySQL", "Rest APi"],
+		technologies: ["Laravel", "PHP", "MySQL", "Rest API"],
+	},
+	{
+		company: "DOT Indonesia",
+		position: "Backend Developer",
+		type: "onsite",
+		time: "internship",
+		period: [new Date(2023, 1), new Date(2023, 8)],
+		details: [
+			"Engaged in the DPR Revamp and Sniper DPR project, contributing to the development and enhancement of backend functionalities using the Laravel framework.",
+			"Utilized agile development methodologies to streamline project workflows, enhance collaboration, and deliver high-quality solutions.",
+			"Gained proficiency in Laravel best practices, coding standards, and version control systems.",
+		],
+		technologies: ["Laravel", "PHP", "MySQL", "Rest API", "Nest JS"],
 	},
 ];
