@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from "svelte";
 	import { createEventDispatcher } from "svelte";
 	const dispatch = createEventDispatcher();
 
@@ -6,9 +7,48 @@
 	export let selectedTags = [];
 	export let allTags = [];
 
+	let posts;
+	let noResults;
+
+	onMount(() => {
+		posts = document.querySelectorAll(".posts-grid article");
+		noResults = document.querySelector("#no-results");
+		filterPosts();
+	});
+
+	function filterPosts() {
+		if (!posts) return;
+		
+		let visiblePosts = 0;
+		posts.forEach((post) => {
+			const title = post.querySelector("h2")?.textContent?.toLowerCase() || "";
+			const description = post.querySelector("p")?.textContent?.toLowerCase() || "";
+			const postTags = JSON.parse(post.dataset.tags || "[]");
+
+			const matchesSearch =
+				searchQuery === "" ||
+				title.includes(searchQuery.toLowerCase()) ||
+				description.includes(searchQuery.toLowerCase());
+
+			const matchesTags = selectedTags.length === 0 || selectedTags.every((tag) => postTags.includes(tag));
+
+			if (matchesSearch && matchesTags) {
+				post.style.display = "block";
+				visiblePosts++;
+			} else {
+				post.style.display = "none";
+			}
+		});
+
+		if (noResults) {
+			noResults.style.display = visiblePosts === 0 ? "block" : "none";
+		}
+	}
+
 	function handleSearch(e) {
 		searchQuery = e.target.value;
 		dispatch("search", { query: searchQuery });
+		filterPosts();
 	}
 
 	function toggleTag(tag) {
@@ -16,9 +56,22 @@
 		if (index === -1) {
 			selectedTags = [...selectedTags, tag];
 		} else {
-			selectedTags = [...selectedTags.filter((t) => t !== tag)];
+			selectedTags = selectedTags.filter((t) => t !== tag);
 		}
 		dispatch("tagChange", { tags: selectedTags });
+		filterPosts();
+	}
+
+	$: {
+		if (searchQuery !== undefined) {
+			filterPosts();
+		}
+	}
+
+	$: {
+		if (selectedTags) {
+			filterPosts();
+		}
 	}
 </script>
 
