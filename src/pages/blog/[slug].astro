@@ -18,7 +18,7 @@ type Props = {
 };
 ---
 
-<MainLayout title={post.data.title}>
+<MainLayout seo={{ title: post.data.title }}>
 	<article class="prose prose-lg dark:prose-invert max-w-none">
 		<div class="mb-8">
 			<h1 class="text-4xl font-bold text-primary mb-4">{post.data.title}</h1>

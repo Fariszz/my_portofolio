@@ -1,24 +1,19 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 import Navbar from "../components/Navbar.astro";
+import SEO, { type Props as SEOProps } from "~/components/SEO.astro";
 
-interface Props {
-	title: string;
-	description?: string;
+export interface Props {
+	seo: SEOProps;
 }
 
-const { title, description = "Personal blog and portfolio" } = Astro.props;
+const { seo } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content={description} />
-		<title>{title}</title>
+		<SEO {...seo} />
 		<ViewTransitions />
 		<script>
 			function updateTheme() {

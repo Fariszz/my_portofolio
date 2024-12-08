@@ -4,7 +4,7 @@ import WorkExperienceSection from "~/components/section/WorkExperienceSection.sv
 import { workExperiences } from "~/data/work-experience";
 ---
 
-<MainLayout title="Experience">
+<MainLayout seo={{ title: "Experience" }}>
 	<div class="space-y-6">
 		<WorkExperienceSection client:visible workExperiences={workExperiences} showSeeMore={false} />
 	</div>

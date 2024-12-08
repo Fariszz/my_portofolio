@@ -8,17 +8,20 @@ import { workExperiences } from "~/data/work-experience";
 import { getCollection } from "astro:content";
 
 const projects = await getCollection("projects");
-const featuredProjects = projects.filter((project: { data: { featured: any; }; }) => project.data.featured);
+const featuredProjects = projects.filter((project: { data: { featured: any } }) => project.data.featured);
 
 const posts = await getCollection("blog");
 const recentPosts = posts
-	.sort((a: { data: { pubDate: string | number | Date; }; }, b: { data: { pubDate: string | number | Date; }; }) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+	.sort(
+		(a: { data: { pubDate: string | number | Date } }, b: { data: { pubDate: string | number | Date } }) =>
+			new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+	)
 	.slice(0, 3);
 
 const workExperiencesSort = workExperiences.slice(0, 2);
 ---
 
-<MainLayout title="Home">
+<MainLayout seo={{ title: "Home" }}>
 	<section class="space-y-12">
 		<div class="space-y-4">
 			<h1 class="text-4xl font-bold text-primary">Muhammad Faris Hadi Mulyo</h1>
@@ -31,7 +34,7 @@ const workExperiencesSort = workExperiences.slice(0, 2);
 		</div>
 
 		<div class="space-y-6">
-		<ProjectsSection client:visible projects={featuredProjects} />
+			<ProjectsSection client:visible projects={featuredProjects} />
 		</div>
 
 		<div class="space-y-6">

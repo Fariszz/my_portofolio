@@ -14,7 +14,7 @@ const { project } = Astro.props;
 const { Content } = await project.render();
 ---
 
-<MainLayout title={project.data.title}>
+<MainLayout seo={{ title: project.data.title }}>
 	<article class="max-w-3xl mx-auto">
 		<h1 class="text-4xl font-bold text-primary">{project.data.title}</h1>
 		<div class="mt-4 flex flex-wrap gap-2">
