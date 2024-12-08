@@ -44,7 +44,7 @@ export const workExperiences: WorkExperience[] = [
 		position: "Fullstack Web Developer",
 		type: "onsite",
 		time: "contract",
-		period: [new Date(2024, 3), new Date(2024, 6)],
+		period: [new Date(2023, 10), new Date(2024, 1)],
 		details: [
 			"Collaborated with cross-functional teams to develop systems that meet user expectations and business objectives",
 			"Participated in regular stand-ups and sprint planning meetings to track progress and prioritize tasks",
