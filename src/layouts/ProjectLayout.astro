@@ -9,7 +9,7 @@ export type Props = {
 const { formatter } = Astro.props as Props;
 ---
 
-<MainLayout title="Projects">
+<MainLayout seo={{ title: formatter.title }}>
 	<article class="max-w-3xl mx-auto">
 		<h1 class="text-4xl font-bold text-primary">{formatter.title}</h1>
 		<div class="mt-4 flex flex-wrap gap-2">
