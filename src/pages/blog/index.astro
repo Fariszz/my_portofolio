@@ -7,7 +7,12 @@ const posts = await getCollection("blog");
 const allTags = [...new Set(posts.flatMap((post: { data: { tags: any } }) => post.data.tags))];
 ---
 
-<MainLayout seo={{ title: "Blog Posts" }}>
+<MainLayout
+	seo={{
+		title: "Blog Posts",
+		description: "Blog posts by Muhammad Faris Hadi Mulyo",
+	}}
+>
 	<div class="space-y-8">
 		<h1 class="text-4xl font-bold">Blog Posts</h1>
 
