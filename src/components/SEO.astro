@@ -46,3 +46,6 @@ const { siteName, siteUrl } = data;
 <meta property="twitter:title" content={props.title || siteName} />
 <meta property="twitter:description" content={description} />
 {thumbnail !== "" && <meta property="twitter:image" content={thumbnail ? thumbnail.toString() : ""} />}
+
+<!-- Sitemap -->
+<link rel="sitemap" href="/sitemap-index.xml" />

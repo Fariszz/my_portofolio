@@ -4,6 +4,7 @@ import Unocss from "unocss/astro";
 import svelte from "@astrojs/svelte";
 import mdx from "@astrojs/mdx";
 import Icons from "unplugin-icons/vite";
+import sitemap from '@astrojs/sitemap';
 // @ts-ignore
 import path from "node:path";
 
@@ -15,6 +16,7 @@ export default defineConfig({
 		}),
 		svelte(),
 		mdx(),
+		sitemap(),
 	],
 	site: "https://muhfarishadimulyo.my.id",
 	vite: {
