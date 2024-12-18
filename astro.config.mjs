@@ -5,6 +5,7 @@ import svelte from "@astrojs/svelte";
 import mdx from "@astrojs/mdx";
 import Icons from "unplugin-icons/vite";
 import sitemap from '@astrojs/sitemap';
+import robotsTxt from 'astro-robots-txt';
 // @ts-ignore
 import path from "node:path";
 
@@ -17,6 +18,10 @@ export default defineConfig({
 		svelte(),
 		mdx(),
 		sitemap(),
+		robotsTxt({
+			host: 'https://muhfarishadimulyo.my.id',
+			sitemap: 'https://muhfarishadimulyo.my.id/sitemap-index.xml'
+		}),
 	],
 	site: "https://muhfarishadimulyo.my.id",
 	vite: {
