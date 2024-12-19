@@ -20,7 +20,13 @@ export default defineConfig({
 		sitemap(),
 		robotsTxt({
 			host: 'https://muhfarishadimulyo.my.id',
-			sitemap: 'https://muhfarishadimulyo.my.id/sitemap-index.xml'
+			sitemap: 'https://muhfarishadimulyo.my.id/sitemap-index.xml',
+			policy: [
+				{
+					userAgent: "*",
+					allow: "/",
+				},
+			],
 		}),
 	],
 	site: "https://muhfarishadimulyo.my.id",
