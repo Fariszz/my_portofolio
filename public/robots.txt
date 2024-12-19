@@ -1,0 +1,3 @@
+User-agent: *
+
+sitemap: https://muhfarishadimulyo.my.id/sitemap-index.xml
